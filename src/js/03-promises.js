@@ -12,26 +12,25 @@ form.addEventListener('submit', event => {
 });
 
 function onClick(userDelay) {
+   let delay = Number(firstDelayValue.value);
    for (let i = 0; i < amountOfPromises.value; i += 1) {
-      setTimeout(() => {
-         createPromise(i, delayStep.value * i)
-            .then(({ position, delay }) => {
-               console.log(
-                  `✅ Fulfilled promise ${position} in ${Number(delay) + Number(userDelay)}ms`
-               );
-               Notiflix.Notify.success(
-                  `✅ Fulfilled promise ${position} in ${Number(delay) + Number(userDelay)}ms`
-               );
-            })
-            .catch(({ position, delay }) => {
-               console.log(
-                  `❌ Rejected promise ${position} in ${Number(delay) + Number(userDelay)}ms`
-               );
-               Notiflix.Notify.failure(
-                  `❌ Rejected promise ${position} in ${Number(delay) + Number(userDelay)}ms`
-               );
-            });
-      }, userDelay);
+      createPromise(i, (delay = Number(delayStep.value) * i))
+         .then(({ position, delay }) => {
+            console.log(
+               `✅ Fulfilled promise ${position} in ${Number(delay) + Number(userDelay)}ms`
+            );
+            Notiflix.Notify.success(
+               `✅ Fulfilled promise ${position} in ${Number(delay) + Number(userDelay)}ms`
+            );
+         })
+         .catch(({ position, delay }) => {
+            console.log(
+               `❌ Rejected promise ${position} in ${Number(delay) + Number(userDelay)}ms`
+            );
+            Notiflix.Notify.failure(
+               `❌ Rejected promise ${position} in ${Number(delay) + Number(userDelay)}ms`
+            );
+         });
    }
 }
 
